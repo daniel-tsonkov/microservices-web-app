@@ -33,8 +33,8 @@ jobs:
 
     # ТУК е ключовото – мапваме secrets към env
     env:
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME || '' }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD || '' }}
 
     steps:
     - name: Check secrets existence
