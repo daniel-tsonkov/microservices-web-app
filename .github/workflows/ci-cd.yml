@@ -36,10 +36,12 @@ jobs:
       run: |
         if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
           echo "DOCKER_USERNAME is EMPTY"
+          exit 1
         fi
 
         if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then
           echo "DOCKER_PASSWORD is EMPTY"
+          exit 1
         fi
 
         echo "Secrets are present"
