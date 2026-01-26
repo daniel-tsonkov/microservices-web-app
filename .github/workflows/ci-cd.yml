@@ -36,6 +36,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Debug secrets
+      run: |
+        echo "Username is set"
+
+
     - name: Login Docker Hub
       uses: docker/login-action@v3
       with:
