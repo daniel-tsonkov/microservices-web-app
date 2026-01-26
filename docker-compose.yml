@@ -2,9 +2,7 @@ version: "3.8"
 
 services:
   gateway:
-    image: tiangolo/uvicorn-gunicorn-fastapi
-    volumes:
-      - ./gateway:/app
+    build: ./gateway
     ports:
       - "8000:80"
     depends_on:
@@ -13,16 +11,10 @@ services:
       - product
 
   auth:
-    image: tiangolo/uvicorn-gunicorn-fastapi
-    volumes:
-      - ./auth-service:/app
+    build: ./auth-service
 
   user:
-    image: tiangolo/uvicorn-gunicorn-fastapi
-    volumes:
-      - ./user-service:/app
+    build: ./user-service
 
   product:
-    image: tiangolo/uvicorn-gunicorn-fastapi
-    volumes:
-      - ./product-service:/app
+    build: ./product-service

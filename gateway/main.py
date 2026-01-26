@@ -3,18 +3,21 @@ import requests
 
 app = FastAPI()
 
-AUTH_URL = "http://auth:8000"
-USER_URL = "http://user:8000"
-PRODUCT_URL = "http://product:8000"
+AUTH_URL = "http://auth"
+USER_URL = "http://user"
+PRODUCT_URL = "http://product"
 
 @app.post("/login")
 def login(data: dict):
-    return requests.post(f"{AUTH_URL}/login", json=data).json()
+    r = requests.post(f"{AUTH_URL}/login", json=data)
+    return r.json()
 
 @app.get("/users")
 def users():
-    return requests.get(f"{USER_URL}/users").json()
+    r = requests.get(f"{USER_URL}/users")
+    return r.json()
 
 @app.get("/products")
 def products():
-    return requests.get(f"{PRODUCT_URL}/products").json()
+    r = requests.get(f"{PRODUCT_URL}/products")
+    return r.json()
