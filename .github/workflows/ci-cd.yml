@@ -3,7 +3,6 @@ name: Microservices CI/CD
 on:
   push:
     branches: [ "main" ]
-  pull_request:
 
 jobs:
   build-test:
