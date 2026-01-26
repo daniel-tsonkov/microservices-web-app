@@ -4,6 +4,11 @@ on:
   push:
     branches: [ "main" ]
 
+# Allow the workflow to push packages using the auto-generated token
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -43,36 +48,37 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Login to Docker Hub
+    - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build & Push gateway
       uses: docker/build-push-action@v4
       with:
         context: ./gateway
         push: true
-        tags: danieltsonkov/gateway:latest
+        tags: ghcr.io/${{ github.repository_owner }}/gateway:latest
 
     - name: Build & Push Auth
       uses: docker/build-push-action@v4
       with:
         context: ./auth-service
         push: true
-        tags: danieltsonkov/auth:latest
+        tags: ghcr.io/${{ github.repository_owner }}/auth:latest
 
     - name: Build & Push User
       uses: docker/build-push-action@v4
       with:
         context: ./user-service
         push: true
-        tags: danieltsonkov/user:latest
+        tags: ghcr.io/${{ github.repository_owner }}/user:latest
 
     - name: Build & Push Product
       uses: docker/build-push-action@v4
       with:
         context: ./product-service
         push: true
-        tags: danieltsonkov/product:latest
+        tags: ghcr.io/${{ github.repository_owner }}/product:latest
