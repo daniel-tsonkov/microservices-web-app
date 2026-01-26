@@ -33,6 +33,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check secrets existence
+      run: |
+        if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+          echo "DOCKER_USERNAME is EMPTY"
+          exit 1
+        fi
+
+        if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then
+          echo "DOCKER_PASSWORD is EMPTY"
+          exit 1
+        fi
+
+        echo "Secrets are present"
+
     - name: Checkout
       uses: actions/checkout@v4
 
